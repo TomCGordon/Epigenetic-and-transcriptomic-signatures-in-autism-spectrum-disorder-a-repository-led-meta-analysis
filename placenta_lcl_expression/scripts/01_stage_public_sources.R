@@ -1,0 +1,7 @@
+source(file.path("scripts", "lib", "placenta_lcl_expression_functions.R"))
+cfg <- plcl_expression_config()
+for (d in cfg$subdirs) dir.create(file.path(cfg$out_dir, d), recursive = TRUE, showWarnings = FALSE)
+manifest <- stage_plcl_sources(cfg)
+write_csv_safe(manifest, file.path(cfg$out_dir, "00_manifest", "placenta_lcl_expression_public_source_file_manifest.csv"))
+write_csv_safe(package_version_table(), file.path(cfg$out_dir, "00_manifest", "R_package_versions.csv"))
+message("Staged ", nrow(manifest), " public source/annotation files.")
